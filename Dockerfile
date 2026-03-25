@@ -2,7 +2,7 @@
 FROM php:8.3-cli-alpine
 
 # Instalar dependências necessárias
-RUN apk add --no-cache curl git postgresql-dev && \
+RUN apk add --no-cache curl git nodejs npm postgresql-dev && \
     docker-php-ext-install -j$(nproc) pdo pdo_pgsql bcmath
 
 # Instalar Composer
@@ -16,6 +16,9 @@ COPY . .
 
 # Instalar dependências PHP de forma reprodutível
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+# Gerar assets de produção do Vite
+RUN npm ci && npm run build && rm -rf node_modules
 
 # Criar diretórios de storage
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views
