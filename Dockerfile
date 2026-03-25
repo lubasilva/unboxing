@@ -1,7 +1,7 @@
-# Usar imagem leve baseada em Alpine
-FROM php:8.3-fpm-alpine
+# Runtime HTTP simples para Railway
+FROM php:8.3-cli-alpine
 
-# Instalar dependências necessárias (sem cache apt para reduzir tamanho)
+# Instalar dependências necessárias
 RUN apk add --no-cache curl git postgresql-dev && \
     docker-php-ext-install -j$(nproc) pdo pdo_pgsql bcmath
 
@@ -11,11 +11,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Definir working directory
 WORKDIR /app
 
-# Copiar código da aplicação inteiro
+# Copiar código da aplicação
 COPY . .
 
-# Instalar dependências PHP (apenas com composer.json, sem lock)
-RUN composer update --no-dev --no-interaction --no-scripts --prefer-dist --optimize-autoloader
+# Instalar dependências PHP de forma reprodutível
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 # Criar diretórios de storage
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views
@@ -23,8 +23,8 @@ RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions sto
 # Ajustar permissões
 RUN chown -R www-data:www-data . && chmod -R 755 storage bootstrap/cache
 
-# Expor porta do PHP-FPM
-EXPOSE 9000
+# Porta padrão do Railway
+EXPOSE 8080
 
-# Comando padrão
-CMD ["php-fpm"]
+# Inicia servidor HTTP escutando a porta dinâmica fornecida pelo Railway
+CMD ["sh", "-c", "php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
