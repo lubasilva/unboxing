@@ -26,5 +26,5 @@ RUN chown -R www-data:www-data . && chmod -R 755 storage bootstrap/cache
 # Porta padrão do Railway
 EXPOSE 8080
 
-# Inicia servidor HTTP escutando a porta dinâmica fornecida pelo Railway
-CMD ["sh", "-c", "php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+# Inicia servidor HTTP com defaults seguros para ambientes sem DB provisionado
+CMD ["sh", "-c", "export SESSION_DRIVER=${SESSION_DRIVER:-file} CACHE_STORE=${CACHE_STORE:-file} QUEUE_CONNECTION=${QUEUE_CONNECTION:-sync}; php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
