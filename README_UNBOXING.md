@@ -285,6 +285,46 @@ Unboxing/
 
 ---
 
+## 🚂 Deploy no Railway
+
+### Variáveis recomendadas
+
+No serviço web do Railway, configure:
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://unboxing-production.up.railway.app
+DB_CONNECTION=pgsql
+DB_HOST=<host do plugin Postgres Railway>
+DB_PORT=5432
+DB_DATABASE=<database>
+DB_USERNAME=<user>
+DB_PASSWORD=<password>
+LOG_CHANNEL=stderr
+```
+
+`APP_KEY` deve existir em produção. Se não existir, o container gera uma chave temporária no startup para evitar erro 500 imediato, mas o ideal é definir uma chave fixa no painel.
+
+### Se aparecer erro 500
+
+1. Abra os logs do serviço web no Railway (Deploy Logs).
+2. Verifique se o startup rodou migrations com sucesso.
+3. Confirme se o banco do plugin e o web service estão na mesma environment.
+4. Rode no shell do serviço web:
+
+```bash
+php artisan about
+php artisan migrate:status
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+Se o erro persistir, ajuste temporariamente `APP_DEBUG=true` apenas para identificar a stacktrace e volte para `false` em seguida.
+
+---
+
 ## 🎯 Referências
 
 - **Identidade Visual**: Dark, minimalista, urbano
