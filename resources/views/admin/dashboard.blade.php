@@ -5,7 +5,7 @@
 @section('content')
 <div class="mb-8">
     <h1 class="text-4xl font-bold mb-2">Dashboard</h1>
-    <p class="text-zinc-400">Bem-vindo ao painel administrativo UNITV</p>
+    <p class="text-zinc-400">Bem-vindo ao painel administrativo Unboxing</p>
 </div>
 
 <!-- Stats Grid -->

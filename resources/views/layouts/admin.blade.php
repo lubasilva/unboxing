@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin') - UNITV</title>
+    <title>@yield('title', 'Admin') - Unboxing</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -13,7 +13,7 @@
         <!-- Sidebar -->
         <aside class="w-64 bg-zinc-950 border-r border-zinc-800/50 overflow-y-auto">
             <div class="p-8">
-                <h1 class="mb-8 text-2xl font-bold tracking-[-0.08em]">UNITV<span class="text-indigo-400">.</span></h1>
+                <h1 class="text-2xl font-bold tracking-tighter mb-8">UNBOXING</h1>
                 
                 <nav class="space-y-2">
                     <a href="{{ route('admin.dashboard') }}" 
