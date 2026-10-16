@@ -40,7 +40,7 @@ class HomeController extends Controller
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unboxing</title>
+    <title>UNITV</title>
     <style>
         body { background: #000; color: #fff; font-family: sans-serif; margin: 0; }
         main { min-height: 100vh; display: grid; place-items: center; padding: 24px; text-align: center; }
@@ -52,8 +52,8 @@ class HomeController extends Controller
 <body>
     <main>
         <div>
-            <h1>UNBOXING</h1>
-            <p>A loja esta online. Estamos finalizando os ultimos ajustes da vitrine.</p>
+            <h1>UNITV</h1>
+            <p>A UNITV está online. Estamos preparando sua experiência.</p>
             <a href="/up">Verificar status</a>
         </div>
     </main>
